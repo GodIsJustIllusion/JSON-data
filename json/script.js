@@ -47,45 +47,23 @@ let person = {
       "name": "SSN",
       "value": "405-88-3636"
     },
-    "picture": {
-      "large": "https://randomuser.me/api/portraits/men/75.jpg",
-      "medium": "https://randomuser.me/api/portraits/med/men/75.jpg",
-      "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
-    },
     "nat": "US"
-  }
+}
 
-  const body = document.body;
+const body = document.body;
 
-
-  function createPerson (person = {}) {
+function createPerson(obj) {
+  for (let key in obj) {
+    let value = obj[key];
     let div = document.createElement('div');
-    div.innerText = "Пол: " + person.gender;
+    div.innerText = key + ": " + value;
     body.appendChild(div);
-
-    div = document.createElement('div');
-    div.innerText = "Имя: " + person.name.title + " " + person.name.first + " " + person.name.last;
-    body.appendChild(div);
-
-    div = document.createElement('div');
-    div.innerText ="Улица: " + person.location.street.number + " " + person.location.street.name;
-    body.appendChild(div);
-
-    div = document.createElement('div');
-    div.innerText = "Город: " + person.location.city + ", " + "\nШтат: " + person.location.state + ", " + "\nСтрана: " + person.location.country + ", " + "\nПочтовый индекс: " + person.location.postcode + ", " + "\nКоординаты: " + person.location.coordinates.latitude + " " + person.location.coordinates.longitude;
-    body.appendChild(div);
-
-    div = document.createElement('div');
-    div.innerText = "Почта: " + person.email;
-    body.appendChild(div);
-
-    div = document.createElement('div');
-    div.innerText = "Логин: \n" + "\tID: " + person.login.uuid + "\n\tUsername: " + person.login.username + "\n\tPassword: " + person.login.password + "\n\tSalt: " + person.login.salt + "\n\tMD5: " + person.login.md5 + "\n\tSha1: " + person.login.sha1 + "\n\tSha256: " + person.login.sha256;
-    body.appendChild(div);
-
-    div = document.createElement('div');
-    div.innerText = "Дата рождения: " + person.dob.date + "";
-    body.appendChild(div);
+      
+    if (typeof value == 'object') {
+      div.innerText = key + ": ";
+      createPerson(value);
+    }
   }
+}
 
-  createPerson(person);
+createPerson(person);
